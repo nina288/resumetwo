@@ -1,0 +1,1307 @@
+<html>
+   <head>
+      <title>АйТи -Штурман</title>
+      <meta charset="UTF-8" />
+      <link
+      href="https://fonts.googleapis.com/css?family=Lobster"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+    rel="stylesheet"
+    href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+    integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+    crossorigin="anonymous"
+  />
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+     <script src="https://cdn.jsdelivr.net/npm/jquery.maskedinput@1.4.1/src/jquery.maskedinput.min.js" type="text/javascript"></script>
+
+      <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
+      <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>   
+      <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-app.js">
+      </script>
+
+<link rel="stylesheet" href="style.css" /> 
+<script
+src="https://kit.fontawesome.com/8c5f8983b2.js"
+crossorigin="anonymous"
+></script>
+
+   </head>
+   
+   <body>       
+    
+            <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-storage.js"></script>
+         <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-database.js"></script>
+         <script>
+           const firebaseConfig = {
+  apiKey: "AIzaSyAj83dq_4FjucVfAWXk_9gFHRc9F0_7mEA",
+  authDomain: "client-order-c2e84.firebaseapp.com",
+  databaseURL: "https://client-order-c2e84-default-rtdb.firebaseio.com",
+  projectId: "client-order-c2e84",
+  storageBucket: "client-order-c2e84.appspot.com",
+  messagingSenderId: "665367054435",
+  appId: "1:665367054435:web:593a380f1fc86244cb5056"
+};
+     
+           firebase.initializeApp(firebaseConfig);
+
+ $(document).ready(function(){
+  $("a[href='#maininfo']").hide();
+  $("a[href='#generalinfo']").hide();
+  $("a[href='#resume']").hide();
+  $( ".main-container").hide();
+  $(".apartments").hide();
+  $(".apartments1").hide();
+  $('#ts1').hide();
+ $('#ts2').hide();
+ $('#ts3').hide();
+ $('#ts4').hide();
+ $('#poiskprof').show(); 
+ $(".contact_from").hide();
+  $(".tforma").hide();
+  $('.work').hide();
+  let proverka='';
+  let email='';
+  let password='';
+  let names='';
+  let surname='';
+
+   $("a[href='#generalinfo']").click(function(){
+    $("a[href='#generalinfo']").hide();
+    $(".apartments").show();
+ // var query = firebase.database().ref("breakfast/");
+ // $(".contacts-section").append('<input id="tex" type="text" name="form-text">'); 
+ $(".card-container").append('<input id="contact_name" type="text" required placeholder="Введите Ваше Имя" name="form-text">'); 
+ $(".card-container").append('<input id="contact_surname" type="text" required placeholder="Введите Ваше Фамилию" name="form-text">'); 
+ $(".card-container").append('<input id="contact_phone" class="mask-phone form-control" type="text" required placeholder="Введите Телефон"name="form-text">'); 
+  
+ $(".card-container").append('<input id="contact_mail" type="text"  required placeholder="Введите Ваш E-mail" name="form-text">'); 
+ $(".card-container").append('<input id="contact_townloc" type="text" required placeholder="Введите Город проживания" name="form-text">'); 
+ $(".card-container").append('<input id="contact_townreg" type="text" required placeholder="Введите Город прописки" name="form-text">'+'<br>'); 
+     
+         $('#contact_name').change( function(){
+          if($(this).val().match(/^\D+$/)){ 
+        $(this).val();
+        $('#contact_name').attr("placeholder", "Введите Ваше Имя");
+          }else {
+    $(this).val('');
+  } 
+        if($('#contact_name').val()){ 
+       $('#contact_name').hide();
+  }else{
+    alert('Вы не заполнили имя');
+     }     
+
+});
+$('#contact_surname').change( function(){
+  if($(this).val().match(/^\D+$/)){ 
+        $(this).val();
+          }else {
+    $(this).val('');
+  }  
+
+  if($('#contact_surname').val()){ 
+       $('#contact_surname').hide();
+  }else{
+    alert('Вы не заполнили фамилию');
+     }     
+});
+$('#contact_phone').mask('+7 (999) 999-99-99');
+$('#contact_phone').change( function(){
+  if($(this).val()){
+      
+      $(this).val();
+    }else {
+$(this).val('');
+}   
+
+  if($('#contact_phone').val()){ 
+       $('#contact_phone').hide();
+  }else{
+    alert('Вы не заполнили телефон');
+     }     
+});
+
+$('#contact_mail').change( function(){
+        
+	$(this).val();
+  if($('#contact_mail').val()){ 
+       $('#contact_mail').hide();
+  }else{
+    alert('Вы не заполнили e - mail');
+     }      
+});
+$('#contact_townloc').change(function(){
+  if($(this).val().match(/^\D+$/)){ 
+        $(this).val();
+          }else {
+    $(this).val('');
+  }         
+
+  if($('#contact_townloc').val()){ 
+       $('#contact_townloc').hide();
+  }else{
+    alert('Вы не заполнили город проживания');
+     }     
+});
+$('#contact_townreg').change(function(){
+  if($(this).val().match(/^\D+$/)){ 
+        $(this).val();
+          }else {
+    $(this).val('');
+  }     
+
+  if($('#contact_townreg').val()){ 
+       $('#contact_townreg').hide();
+  }else{
+    alert('Вы не заполнили город по прописке');
+     }     
+});
+$('#btnoshistka').click(function(){
+   $('#contact_name').show();
+   $('#contact_surname').show();
+   $('#contact_phone').show();
+  
+   $('#contact_mail').show();
+   
+   $('#contact_townreg').show();
+   $('#contact_townloc').show();
+});   
+      });
+      $("a[href='#maininfo']").click(function(){
+        $("a[href='#maininfo']").hide();
+        $(".apartments1").show();
+
+ $(" .dataday").append('<p>'+'<input id="dataday" type="text" class="mask-date form-control" required placeholder="Введите: Дата рождения" name="form-text">'+'</p>'); 
+ $(".pol").append('<p>'+'<select id="polW" class="all" required>'+'<option selected>'+'Выберите пол'+'</option>'+'<option value="Ж">'+'женский'+'</option>' +'<option value="М">'+'мужской'+'</option>'+'</select>'+'</p>');
+ $(".marr").append('<select id="married" class="all" required>'+'<option selected>'+'Семейное положение'+'</option>'+'<option>'+'замужем/женат'+'</option>' +'<option>'+'незамужем/не женат'+'</option>'+'</select>'+'</p>');  
+ $(".vacation").append('<p>'+'<select id="vacation" class="all" required>'+'<option selected>'+'Желаемая должность'+'</option>'+'<option>'+'менеджер'+'</option>'+'<option>'+'техник по программным продуктам 1С'+'</option>'+'<option>'+'программист 1С'+'</option>'+'<option>'+'менеджер активных продаж'+'</option>'+'</select>'+'</p>'+'<br>');  
+ $(".earn").append('<p>'+'<input id="earnfrom" type="text" required placeholder="Желаемая зарплата: от" name="form-text">'+'</p>');
+ $(".earn").append('<p>'+'<input id="earnto" type="text" required placeholder="Желаемая зарплата: до" name="form-text">'+'</p>');
+ $(".earn").append('<span>'+'<input type="checkbox" id="ch" class="all">'+'Имеется последний опыт работы'+'</span>'+'<br>');
+ 
+  $(".seat").append('<p>'+'<input id="seat" type="text" required placeholder="Место работы" name="form-text">'+'</p>');
+ $(".prof").append('<p>'+'<input id="prof" type="text" required placeholder="Должность" name="form-text">'+'</p>');
+ $(".period").append('<p>'+'<input id="periodfrom" type="text" required placeholder="Период: От" name="form-text">'+'</p>');
+ $(".period").append('<p>'+'<input id="periodto" type="text" required placeholder="Период: До" name="form-text">'+'</p>');
+ $(".dolshn_instruct").append('<p>'+'<select id="dolshn_instruct" class="all" required>'+'<option selected>'+'Выберите инструкции'+'</option>'+'<option>'+'Определять источники поиска клиентов'+'</option>'+'<option>'+'Заключение договоров'+'</option>'+'<option>'+'Занесение данных о клиенте в базу'+'</option>'+'<option>'+'обеспечение звонков потенциальным клиентам'+'</option>'+'<option>'+'Отправлять коммерческое предложение'+'</option>'+'<option>'+'Проводить переговоры по продаже'+'</option>'+'<option>'+'Определять потенциал территории и клиента'+'<option>'+'Программировать на платформе 1С'+'</option>'+'</select>'+'</p>'+'<br>');
+
+
+ 
+ $(".education").append('<p>'+'<select id="education" class="all" required>'+'<option selected>'+'Выберите образование'+'</option>'+'<option>'+'высшее'+'</option>'+'<option>'+'среднее'+'</option>'+'<option>'+'среднее специальное'+'</option>'+'<option>'+'бакалавр'+'</option>'+'</select>'+'</p>'+'<br>');  
+ $(".building").append('<p>'+'<input id="building" type="text" required placeholder="Учебное заведение" name="form-text">'+'</p>');
+ $(".department").append('<p>'+'<input id="department" type="text" required placeholder="Факультет" name="form-text">'+'</p>');
+ $(".spec").append('<p>'+'<input id="spec" type="text" required placeholder="Специализация" name="form-text">'+'</p>');
+ $(".yeargrad").append('<p>'+'<input id="yeargrad" type="text" required placeholder="Год окончания" name="form-text">'+'</p>');
+ $('#ch').change(function(){ 
+ if ($('#ch').is(':checked')){
+  $('.work').show();
+} else {
+  $('.work').hide();
+  
+}
+ });
+ $("#dataday").mask('99.99.9999');
+ $('#dataday').change(function(){ 
+  
+  if($(this).val().match(/^(0?[1-9]|[12][0-9]|3[01])\.(0?(?:[1-9]|1[0-2]))\.[1-2][0-9]{3}$/) ){
+  
+  $(this).val();
+  }else {
+    $(this).val('');
+  }
+  if($('#dataday').val()){ 
+       $('#dataday').hide();
+  }else{
+    alert('Вы не заполнили число');
+     }
+});     
+      $('#polW ').change( function(){
+        if($(this).val()){
+        $(this).val();
+       
+        }
+       //   $('#polW').attr('disabled',true);
+       if($('#polW').val()){ 
+       $('#polW').hide();
+  }else{
+    alert('Вы не заполнили пол');
+     }    
+      });
+     
+      $('#married ').change( function(){
+        if($(this).val()){
+        $(this).val();
+         // $('#notmarried').attr('disabled',true);
+        } 
+        if($('#married').val()){ 
+       $('#married').hide();
+  }else{
+    alert('Вы не заполнили семейное положение');
+     }    
+      });
+     
+      $('#vacation').change( function(){  
+        $(this).val();
+       
+              if($('#vacation').val()){ 
+       $('#vacation').hide();
+  }else{
+    alert('Вы не заполнили желаемую должность');
+     }                 
+      });
+     
+       
+    
+      $('#earnfrom').change( function(){  
+        if($(this).val().match(/^\d+$/)){
+      
+          $(this).val();
+        
+        //  $(this).next('#earnto').focus();
+        }else {
+    $(this).val('');
+  }
+  if($('#earnfrom').val()){ 
+       $('#earnfrom').hide();
+  }else{
+    alert('Вы не заполнили желаемую зарплату');
+     }    
+ 
+      });
+    
+      $('#earnto').change( function(){  
+        if($(this).val().match(/^\d+$/)){
+        
+          $(this).val();
+        
+          $(this).next('#seat').focus();
+        }else {
+    $(this).val('');
+  }
+  if($('#earnto').val()){ 
+       $('#earnto').hide();
+  }else{
+    alert('Вы не заполнили желаемую зарплату');
+     }    
+      });
+      $('#ch').change(function(){ 
+      $('#seat').change(function(){
+        if ($('#ch').is(':checked')){  
+        if($(this).val().match(/^\D+$/)){
+      
+        $(this).val();
+        
+          }else {
+    $(this).val('');
+  } }else{
+    $('#seat').val('нет опыта');
+  }
+
+  if($('#seat').val()){ 
+       $('#seat').hide();
+  }else{
+    alert('Вы не заполнили место работы');
+     }    
+      });
+    });
+    $('#ch').change(function(){ 
+      $('#prof').change( function(){ 
+        if ($('#ch').is(':checked')){ 
+        if($(this).val().match(/^\D+$/)){ 
+        $(this).val();
+        
+          }else {
+    $(this).val('');
+  }}else{
+    $('#prof').val('нет опыта');
+  }
+  if($('#prof').val()){ 
+       $('#prof').hide();
+  }else{
+    alert('Вы не заполнили должность');
+     }    
+      });
+    });
+    $('#ch').change(function(){ 
+      $('#dolshn_instruct').change( function(){ 
+        if ($('#ch').is(':checked')){ 
+          $('#dolshn_instruct option').prop('selected',true);
+        }else{
+    $('#dolshn_instruct').val('нет опыта');
+  }
+  if($('#dolshn_instruct').val()){ 
+       $('#dolshn_instruct').hide();
+  }else{
+    alert('Вы не заполнили должностные инструкции');
+     }    
+      });
+    });
+    $("#periodfrom").mask('99.99.9999');
+    $('#ch').change(function(){ 
+      $('#periodfrom').change( function(){
+        if ($('#ch').is(':checked')){ 
+        if($(this).val().match(/^(0?[1-9]|[12][0-9]|3[01])\.(0?(?:[1-9]|1[0-2]))\.[1-2][0-9]{3}$/) ){
+        $(this).val();
+        
+          }else {
+    $(this).val('');
+  }}else{
+    $('#periodfrom').val('нет опыта');
+  }
+  if($('#periodfrom').val()){ 
+       $('#periodfrom').hide();
+  }else{
+    alert('Вы не заполнили период работы');
+     }    
+      });
+    });
+    $("#periodto").mask('99.99.9999');
+    $('#ch').change(function(){ 
+      $('#periodto').change( function(){ 
+        if ($('#ch').is(':checked')){  
+        if($(this).val().match(/^(0?[1-9]|[12][0-9]|3[01])\.(0?(?:[1-9]|1[0-2]))\.[1-2][0-9]{3}$/) ){
+        $(this).val();
+         
+          }else {
+    $(this).val('');
+  }}else{
+    $('#periodto').val('нет опыта');
+  }
+  if($('#periodto').val()){ 
+       $('#periodto').hide();
+  }else{
+    alert('Вы не заполнили период работы');
+     }    
+      });
+    });
+      $('#education').change( function(){  
+        $(this).val();
+         
+              if($('#education').val()){ 
+       $('#education').hide();
+  }else{
+    alert('Вы не заполнили образование');
+     }        
+      });
+      $('#building').change( function(){  
+        if($(this).val().match(/^\D+$/)){ 
+        $(this).val();
+         
+          }else {
+    $(this).val('');
+  }
+  if($('#building').val()){ 
+       $('#building').hide();
+  }else{
+    alert('Вы не заполнили учебное заведение');
+     }    
+      });
+      $('#department').change( function(){  
+        if($(this).val().match(/^\D+$/)){ 
+        $(this).val();
+      
+        }else {
+    $(this).val('');
+  }
+  if($('#department').val()){ 
+       $('#department').hide();
+  }else{
+    alert('Вы не заполнили факультет');
+     }    
+      });
+      $('#spec').change( function(){ 
+        if($(this).val().match(/^\D+$/)){  
+        $(this).val();
+        
+        }else {
+    $(this).val('');
+  }
+  if($('#spec').val()){ 
+       $('#spec').hide();
+  }else{
+    alert('Вы не заполнили специальность');
+     }    
+      });
+      $('#yeargrad').change( function(){ 
+        if($(this).val().match(/^\d{4}$/)){ 
+       $(this).val();
+        //  $(".my-work-experience-position").append('<span>'+'Год окончания:'+" "+$(this).val()+'<span>'+'<br>');
+         
+          }else {
+    $(this).val('');
+  }
+  if($('#yeargrad').val()){ 
+       $('#yeargrad').hide();
+  }else{
+    alert('Вы не заполнили год окончания');
+     }    
+      });
+      $('#btnotpravka1').click(function(){ 
+       
+       // $( ".main-container").show(); 
+
+    if($('#dataday').val() && $('#polW').val() && $('#married').val() && $('#vacation').val() && $('#earnfrom').val() && $('#earnto').val() 
+ && $('#education').val()&& $('#building').val()&& $('#department').val()
+ && $('#spec').val()&&  $('#yeargrad').val()&& $('#contact_name').val()&&$('#contact_surname').val()&&$('#contact_phone').val()
+ && $('#contact_mail').val()&&$('#contact_townloc').val()&&$('#contact_townreg').val())
+ 
+  {
+        var myRef = firebase.database().ref("Users/");
+  let n= myRef.push({
+         dataday:$('#dataday').val(),
+         polW:  $('#polW').val(),
+         married:$('#married').val(),
+         vacation:$('#vacation').val(),
+         earnfrom:$('#earnfrom').val(),
+         earnto: $('#earnto').val(),
+        seat: $('#seat').val(),
+         prof:  $('#prof').val().toLowerCase(),
+         dolshn_insruction:$('#dolshn_instruct').val(),
+         periodfrom:$('#periodfrom').val(),
+         periodto: $('#periodto').val(),
+         education:$('#education').val(),
+         building:$('#building').val(),
+         department: $('#department').val(),
+        spec: $('#spec').val(),
+         yeargrad:  $('#yeargrad').val(),
+         name:$('#contact_name').val(),
+         surname:$('#contact_surname').val().toLowerCase(),
+         phone: $('#contact_phone').val(),
+         mail:  $('#contact_mail').val(),
+         townloc:$('#contact_townloc').val().toLowerCase(),
+         townreg: $('#contact_townreg').val()
+        
+       });
+       $('#btnotpravka1').hide();
+       $('#btndel').click(function(){
+        $('#btnotpravka1').hide();
+        $("a[href='#resume']").hide();
+        $( ".main-container").hide();
+       // $( ".main-container").empty();
+myRef.child(n.key).remove();
+alert('Вы удалили резюме');
+   
+$('#btnotpravka1').show();
+       });
+       if(n!=0) alert('Вы успешно сформировали резюме');
+   
+      } else {alert('Заполните все данные')};
+    
+  
+      
+       $('#btnoshistka1').show();
+       $("a[href='#generalinfo']").hide();
+        $("a[href='#maininfo']").hide();
+        $("a[href='#resume']").hide();
+             $( ".main-container").hide();
+      //  $(".apartments").hide();
+ // $(".apartments1").hide();
+       });
+     
+
+       $('#btnoshistka1').click(function(){
+   $('#dataday').show();
+   $('#married').show();
+   $('#polW').show();
+   $('#vacation').show();
+   $('#earnfrom').show();
+   $('#earnto').show();
+   $('#seat').show();
+   $('#prof').show();
+   $('#dolshn_instruct').show();
+   $('#periodfrom').show();
+   $('#periodto').show();
+   $('#education').show();
+   $('#building').show();
+   $('#department').show();
+   $('#spec').show();
+   $('#yeargrad').show();
+});
+$('#btnoshistka1').hide();
+$('#btnotpravka1').show();
+      });
+      $("a[href='#resume']").click(function(){
+        $("a[href='#resume']").hide();
+     //   $( ".main-container").empty();
+$( ".main-container").show();
+      
+       var query = firebase.database().ref("Users/").limitToLast(1);
+      // var last = firebase.database().ref('players/').limitToLast(1);
+ 
+  query.once("value", function (snapshot) {
+        snapshot.forEach(function (snapshot) {
+          
+
+        $(".about-me-name").append('<span>'+snapshot.val().surname[0].toUpperCase()+snapshot.val().surname.substring(1)+'</span>'+'<br>'); 
+          $(".about-me-surname").append('<span>'+ snapshot.val().name+'</span>'+'<br>'); 
+            $(".about-me-description").append('<span>'+snapshot.val().dataday+" "+'г.р.'+'</span>'+'<br>' +'<span>'+'Телефон:'+" "+ snapshot.val().phone+'</span>'+'<br>'+'<span>'+'Email:'+" "+snapshot.val().mail+'</span>'+'<br>'+'<span>'+'Пол:'+" "+snapshot.val().polW+'</span>'+'<br>'+'<span>'+'Семейное положение:'+" "+snapshot.val().married+'</span>'+'<br>');
+           
+                $(".about-me-description").append('<span>'+'Город проживания:'+snapshot.val().townloc[0].toUpperCase()+snapshot.val().townloc.substring(1)+'</span>'+'<br>');
+                  $(".about-me-profession").append('<p>'+'Желаемая должность:'+ snapshot.val().vacation+'</p>');
+            $(".my-work-experience-duty").append('<p>'+'Желаемая должность:'+ snapshot.val().vacation+'</p>'+'<br>');
+              $(".my-work-experience-company").append('<p>'+'Желаемая зарплата: От'+" " +snapshot.val().earnfrom+'</p>'+'<br>');
+                $(".my-work-experience-company").append('<p>'+'Желаемая зарплата:До'+" " +snapshot.val().earnto+'</p>'+'<br>');
+                  $(".my-work-experience-company").append('<p>'+'Место работы'+" "+snapshot.val().seat+'</p>'+'<br>');
+                    $(".about-me-description").append('<span>'+'Должность'+" "+snapshot.val().prof+'</span>'+'<br>');
+          $(".my-work-experience-company").append('<p>'+'Должность'+" "+snapshot.val().prof+'</p>'+'<br>');
+ $(".my-work-experience-company").append('<p>'+'Должностные инструкции'+'</p>'+'<br>'+'<p>'+snapshot.val().dolshn_insruction +'</p>'); 
+            $(".about-me-description").append('<span>'+'Период: От'+" "+snapshot.val().periodfrom+'</span>'+'<br>');
+              $(".about-me-description").append('<span>'+'Период: До'+" "+snapshot.val().periodto+'</span>'+'<br>');
+          $(".my-work-experience-period").append('<p>'+'Период: От'+" "+snapshot.val().periodfrom+'</p>'+'<br>');
+           
+            $(".ed").append('<span>'+'Образование:'+" "+snapshot.val().education+'</span>'+'<br>');
+            $(".my-edu").append('<span>'+'Образование:'+" "+snapshot.val().education+'</span>'+'<br>');
+           
+          $(".my-work-experience-period").append('<p>'+'До:'+" "+snapshot.val().periodto+'</p>'+'<br>');
+            $(".edu").append('<span>'+'Учебное заведение:'+" "+snapshot.val().building+'</span>'+'<br>'); 
+           //   $(".facalty").append('<span>'+'Факультет:'+" "+$(this).val()+'<span>'+'<br>');
+                $(".special").append('<span>'+'Специализация:'+" "+snapshot.val().spec+'</span>'+'<br>'); 
+                  $(".my-edu-divider").append('<span>'+'Год окончания:'+" "+snapshot.val().yeargrad+'</span>'+'<br>');
+      });
+    });
+  });
+ 
+  $('#poiskprof2').click(function(){ 
+  
+    var query=firebase.database().ref("Users/");
+query.orderByChild("surname").on("child_added", function(data) {
+  $('#ts1').show();
+ // $('#ts1').val('');
+   var t1=document.getElementById("fam").value;
+  
+  if (data.val().surname.indexOf(t1.toLowerCase())>=0){
+    console.log(data.val().surname);
+//   $(".container2").append('<figure class="card">'+'<img src='  + data.val().image + '/>'+'</figure>');
+//alert(data.val().surname );
+  // $('#ts').val( data.val().surname + " ");  
+  // $('#ts').val( data.val().name + " ");
+  // $('#ts').val( data.val().prof +" ");
+  $('#ts1').val( $('#ts1').val()+" "+'Имя:'+data.val().name+"\n");
+  $('#ts1').val( $('#ts1').val()+" "+'Фамилия:'+data.val().surname[0].toUpperCase()+data.val().surname.substring(1)+"\n");
+  $('#ts1').val( $('#ts1').val()+" "+'Дата рождения:'+data.val().dataday+"\n");
+  $('#ts1').val( $('#ts1').val()+" "+'Email:'+data.val().mail+"\n");
+  $('#ts1').val( $('#ts1').val()+" "+'Семейное положение:'+data.val().married+"\n");
+  $('#ts1').val( $('#ts1').val()+" "+'Пол:'+data.val().polW+"\n");
+ 
+ }
+ 
+
+ }); 
+});
+$('#btnsort').click(function(){ 
+ 
+  $(".tform").append( '<br>'+'<table id="example" class="display" cellspacing="0" width="100%">'+
+        '<thead>'+
+           '<tr>'+
+                
+                '<th width="25%">'+'Имя'+'</th>'+
+                '<th width="25%">'+'Фамилия'+'</th>'+
+                '<th width="15%">'+'Дата рождения'+'</th>'+
+                '<th width="15%">'+'Email'+'</th>'+
+               '<th width="25%">'+'Семейное положение'+'</th>'+
+               '<th width="15%">'+'Пол'+'</th>'+
+             //  '<th width="25%">'+'Общая сумма заказа'+'</th>'+
+           '</tr>'+
+        '</thead>'); 
+var query=firebase.database().ref("Users/");
+query.orderByChild("surname").on("child_added", function(data) {
+  $('#ts1').show();
+ // $('#ts1').val('');
+   var t1=document.getElementById("fam").value;
+  
+  if (data.val().surname.indexOf(t1.toLowerCase())>=0){
+  
+           
+         $(".tform").append('<table id="example" class="display" cellspacing="0" width="100%">'+  
+                '<tbody>'+
+                   '<tr>'
+                        
+                        +'<td width="25%">'+ data.val().name +'</td>'
+                       + '<td width="25%">'+data.val().surname[0].toUpperCase()+data.val().surname.substring(1) + '</td>'
+                        +'<td width="15%">'+ data.val().dataday + '</td>'
+                        +'<td width="15%">'+ data.val().mail  + '</td>'
+                        +'<td width="25%">'+ data.val().married + '</td>'
+                        +'<td width="15%">'+ data.val().polW + '</td>'
+                       // +'<td width="25%">'+ data.val().summary + '</td>'
+                   + '</tr>'
+                    
+               + '</tbody>'
+           + '</table>');
+                   }
+    });
+  });
+
+$('#poiskprof2').click(function(){ 
+
+  var query=firebase.database().ref("Users/"); 
+ query.orderByChild("townloc").on("child_added", function(data) {
+  $('#ts2').show();
+  //$('#ts2').val('');
+   var t3=document.getElementById("city").value;
+ 
+  if( data.val().townloc.indexOf(t3.toLowerCase())>=0) {
+   console.log(data.val().townloc);
+//   $(".container2").append('<figure class="card">'+'<img src='  + data.val().image + '/>'+'</figure>');
+//alert(data.val().surname );
+  // $('#ts').val( data.val().surname + " ");  
+  // $('#ts').val( data.val().name + " ");
+  // $('#ts').val( data.val().prof +" ");
+  $('#ts2').val( $('#ts2').val()+" "+'Фамилия:'+data.val().surname[0].toUpperCase()+data.val().surname.substring(1)+"\n");
+  $('#ts2').val( $('#ts2').val()+" "+'Имя:'+data.val().name+"\n");
+  $('#ts2').val( $('#ts2').val()+" "+'Город по прописке:'+data.val().townreg+"\n");
+  $('#ts2').val( $('#ts2').val()+" "+'Город проживания:'+data.val().townloc[0].toUpperCase()+data.val().townloc.substring(1)+"\n");
+        
+ }
+ 
+ });
+ }); 
+ $('#btnsort').click(function(){ 
+
+  $(".tform").append('<br>'+ '<table id="example" class="display" cellspacing="0" width="100%">'+
+        '<thead>'+
+           '<tr>'+
+                
+                '<th width="25%">'+'Фамилия'+'</th>'+
+                '<th width="25%">'+'Имя'+'</th>'+
+                '<th width="15%">'+'Город по прописке'+'</th>'+
+                '<th width="15%">'+'Город проживания'+'</th>'+
+           '</tr>'+
+        '</thead>');   
+        var query=firebase.database().ref("Users/"); 
+ query.orderByChild("townloc").on("child_added", function(data) {
+  $('#ts2').show();
+  //$('#ts2').val('');
+   var t3=document.getElementById("city").value;
+ 
+  if( data.val().townloc.indexOf(t3.toLowerCase())>=0) { 
+    $(".tform").append('<table id="example" class="display" cellspacing="0" width="100%">'+  
+                '<tbody>'+
+                   '<tr>'
+                        
+                        +'<td width="25%">'+ data.val().surname[0].toUpperCase()+data.val().surname.substring(1) +'</td>'
+                       + '<td width="25%">'+data.val().name + '</td>'
+                        +'<td width="15%">'+ data.val().townreg + '</td>'
+                        +'<td width="15%">'+ data.val().townloc[0].toUpperCase()+data.val().townloc.substring(1) +" " + '</td>'
+                      
+                       // +'<td width="25%">'+ data.val().summary + '</td>'
+                   + '</tr>'
+                    
+               + '</tbody>'
+           + '</table>');
+                   } 
+});
+ });
+$('#poiskprof2').click(function(){ 
+
+var query=firebase.database().ref("Users/");
+ query.orderByChild("education").on("child_added", function(data) {
+  $('#ts4').show();
+ // $('#ts4').val('');
+   var t1=document.getElementById("educ").value;
+
+  if( (data.val().education.indexOf(t1.toLowerCase())>=0) || (data.val().education.indexOf(t1.toUpperCase())>=0)){
+    console.log(data.val().education);
+//   $(".container2").append('<figure class="card">'+'<img src='  + data.val().image + '/>'+'</figure>');
+//alert(data.val().surname );
+  // $('#ts').val( data.val().surname + " ");  
+  // $('#ts').val( data.val().name + " ");
+  // $('#ts').val( data.val().prof +" ");
+  $('#ts4').val( $('#ts4').val()+" "+'Фамилия:'+data.val().surname[0].toUpperCase()+data.val().surname.substring(1)+"\n");
+  $('#ts4').val( $('#ts4').val()+" "+'Имя:'+data.val().name+"\n");
+  $('#ts4').val( $('#ts4').val()+" "+'Образование:'+data.val().education+"\n");
+  $('#ts4').val( $('#ts4').val()+" "+'Учебное заведение:'+data.val().building+"\n");
+  $('#ts4').val( $('#ts4').val()+" "+'Специальность:'+data.val().spec+"\n");
+  $('#ts4').val( $('#ts4').val()+" "+'Год окончания:'+data.val().yeargrad+"\n");
+ }
+ });  
+});
+$('#btnsort').click(function(){ 
+
+  $(".tform").append( '<br>'+'<table id="example" class="display" cellspacing="0" width="100%">'+
+        '<thead>'+
+           '<tr>'+
+                
+                '<th width="25%">'+'Фамилия'+'</th>'+
+                '<th width="25%">'+'Имя'+'</th>'+
+                '<th width="20%">'+'Образование'+'</th>'+
+                '<th width="15%">'+'Учебное заведение'+'</th>'+
+                '<th width="15%">'+'Специальность'+'</th>'+
+                '<th width="15%">'+'Год окончания'+'</th>'+
+           '</tr>'+
+        '</thead>');   
+        var query=firebase.database().ref("Users/");
+        query.orderByChild("education").on("child_added", function(data) {
+  $('#ts4').show();
+ // $('#ts4').val('');
+   var t1=document.getElementById("educ").value;
+
+  if( (data.val().education.indexOf(t1.toLowerCase())>=0) || (data.val().education.indexOf(t1.toUpperCase())>=0)){
+  $(".tform").append('<table id="example" class="display" cellspacing="0" width="100%">'+  
+                '<tbody>'+
+                   '<tr>'
+                        
+                        +'<td width="25%">'+ data.val().surname[0].toUpperCase()+data.val().surname.substring(1) +'</td>'
+                       + '<td width="25%">'+data.val().name + '</td>'
+                        +'<td width="20%">'+ data.val().education + '</td>'
+                        +'<td width="15%">'+ data.val().building+" " + '</td>'
+                        +'<td width="15%">'+ data.val().spec+" " + '</td>'
+                        +'<td width="15%">'+ data.val().yeargrad +" " + '</td>'
+                       
+                   + '</tr>'
+                    
+               + '</tbody>'
+           + '</table>');
+                   }
+                  });
+                });
+
+
+$('#poiskprof2').click(function(){
+  
+ var query=firebase.database().ref("Users/");
+  query.orderByChild("prof").on("child_added", function(data) {
+    $('#ts3').show();
+   // $('#ts3').val('');
+    var t2=document.getElementById("occupation").value;
+
+ if( (data.val().prof.indexOf(t2.toLowerCase())>=0) || (data.val().prof.indexOf(t2.toUpperCase())>=0)){
+  console.log(data.val().prof);
+//   $(".container2").append('<figure class="card">'+'<img src='  + data.val().image + '/>'+'</figure>');
+//alert(data.val().surname );
+  // $('#ts').val( data.val().surname + " ");  
+  // $('#ts').val( data.val().name + " ");
+  // $('#ts').val( data.val().prof +" ");
+ 
+  $('#ts3').val( $('#ts3').val()+" "+'Фамилия:'+data.val().surname[0].toUpperCase()+data.val().surname.substring(1)+"\n");
+  $('#ts3').val( $('#ts3').val()+" "+'Имя:'+data.val().name+"\n");
+  $('#ts3').val( $('#ts3').val()+" "+'Должность:'+data.val().prof+"\n");
+  $('#ts3').val( $('#ts3').val()+" "+'Период ОТ:'+data.val().periodfrom+"\n");
+  $('#ts3').val( $('#ts3').val()+" "+'Период ДО:'+data.val().periodto+"\n");
+  $('#ts3').val( $('#ts3').val()+" "+'Зарплата ОТ:'+data.val().earnfrom+"\n");
+  $('#ts3').val( $('#ts3').val()+" "+'Зарплата До:'+data.val().earnto+"\n");
+    
+ }
+  });
+ }); 
+ $('#btnsort').click(function(){ 
+ 
+  $(".tform").append('<br>'+ '<table id="example" class="display" cellspacing="0" width="100%">'+
+        '<thead>'+
+           '<tr>'+
+                
+                '<th width="15%">'+'Фамилия'+'</th>'+
+                '<th width="15%">'+'Имя'+'</th>'+
+                '<th width="20%">'+'Должность'+'</th>'+
+                '<th width="15%">'+'Период ОТ'+'</th>'+
+                '<th width="15%">'+'Период ДО'+'</th>'+
+                '<th width="25%">'+'Зарплата ОТ'+'</th>'+
+                '<th width="25%">'+'Зарплата До'+'</th>'+
+           '</tr>'+
+        '</thead>');   
+        var query=firebase.database().ref("Users/");
+  query.orderByChild("prof").on("child_added", function(data) {
+    $('#ts3').show();
+   // $('#ts3').val('');
+    var t2=document.getElementById("occupation").value;
+
+ if( (data.val().prof.indexOf(t2.toLowerCase())>=0) || (data.val().prof.indexOf(t2.toUpperCase())>=0)){ 
+  $(".tform").append('<table id="example" class="display" cellspacing="0" width="100%">'+  
+                '<tbody>'+
+                   '<tr>'
+                        
+                        +'<td width="15%">'+ data.val().surname[0].toUpperCase()+data.val().surname.substring(1) +'</td>'
+                       + '<td width="15%">'+data.val().name + '</td>'
+                        +'<td width="20%">'+ data.val().prof + '</td>'
+                        +'<td width="15%">'+ data.val().periodfrom +" " + '</td>'
+                        +'<td width="15%">'+ data.val().periodto +" " + '</td>'
+                        +'<td width="25%">'+ data.val().earnfrom +" "+'руб.' + '</td>'
+                        +'<td width="25%">'+ data.val().earnto +" " +'руб.'+ '</td>'
+                      
+                       // +'<td width="25%">'+ data.val().summary + '</td>'
+                   + '</tr>'
+                    
+               + '</tbody>'
+           + '</table>');
+                   }
+                  });
+                });
+ 
+ //$('#poiskprof').hide(); 
+ $('#poiskprof').click(function(){ 
+  $('#ts1').val(''); 
+  $('#ts2').val(''); 
+  $('#ts3').val(''); 
+  $('#ts4').val('');
+  $(".tform").empty(); 
+ });
+ //$('#btnsort').hide();
+ $('form').on('click', '.password-checkbox', function(){
+	if ($(this).is(':checked')){
+		$('#password-input').attr('type', 'text');
+	} else {
+		$('#password-input').attr('type', 'password');
+	}
+}); 
+ $("a[href='#client']").click(function(){
+
+let clients=confirm("Вы хотите войти в качестве пользователя?");
+if(clients==true){
+  $("a[href='#generalinfo']").show();
+  $("a[href='#maininfo']").show();
+  $(".apartments").hide();
+  $(".apartments1").hide();
+  $("a[href='#client']").hide();
+  $("a[href='#resume']").hide();
+  $( ".main-container").hide();
+  $(".contact_from").hide();
+  $(".tforma").hide();
+ names = prompt("Введите Ваше Имя");
+ surname = prompt("Введите Вашу Фамилию");
+while((names==null || names=='') && (surname==null||surname==''))
+{
+ names = prompt("Введите Ваше Имя");
+ surname = prompt("Введите Вашу Фамилию");
+}
+//$("a[href='#zakaz']").show();
+} 
+});
+
+
+$('#reg').click(function(){
+//proverka = prompt("Введите Email");
+proverka=	$('#t').val();
+     email ='elena@mail.ru';
+ //password = prompt("Введите пароль");
+ password=$('#password-input').val();
+
+$(".contact_from").hide();
+$(".tforma").hide();
+$("a[href='#generalinfo']").hide();
+  $("a[href='#maininfo']").hide();
+  $("a[href='#resume']").hide();
+  $( ".main-container").hide();
+if(proverka==email){
+firebase.auth().createUserWithEmailAndPassword(email, password)
+.then(function() {
+      confirm('Вы зарегистрировались успешно');
+    
+   }, function(error) {
+      confirm('Вы уже зарегистрировались') ;
+      
+     
+   });
+  }else{alert('Вы ввели неправильный Email или пароль')}
+ 
+   if((email=='')&&(password==null))
+  alert('Вы не зарегистрировались!');
+  
+  });
+  $('#goon').click(function(){
+  //  var email =prompt(names+" "+ "Введите e-mail") ;
+ // $("a[href='#go']").hide();
+    firebase.auth().signInWithEmailAndPassword(email, password)
+.then(function() {
+     confirm( 'Вы вошли успешно');
+     $(".contact_from").show();
+$(".tforma").show();
+$("a[href='#resume']").show();
+$("a[href='#maininfo']").hide();
+$("a[href='#generalinfo']").hide();
+$( ".main-container").hide();      
+$(".apartments").hide();
+  $(".apartments1").hide();  
+  $('#goon').hide();    
+   }, function(error) {
+      confirm( 'Вы не вошли');
+      
+     
+   });
+  
+  
+  
+  });
+
+  $('#goout').click(function(){
+    firebase.auth().signOut() 
+    .then(function() {
+      confirm('Вышли успешно');
+      $(".tforma").hide();
+      $(".contact_from").hide();
+      $( ".main-container").hide();  
+      $('#goon').show(); 
+      $(".f").hide(); 
+   }, function(error) {
+      confirm('Не вышли')  
+   });
+  });
+
+  
+});
+    
+// Create a reference from a Google Cloud Storage URI
+//var gsReference = storage.refFromURL('gs://client-order-c2e84.appspot.com/photo');
+
+// Create a reference from an HTTPS URL
+// Note that in the URL, characters are URL escaped!
+
+         </script>
+ <header>
+  <nav>
+    <input type="checkbox" id="checkbox-menu" />
+    <label for="checkbox-menu">
+      <ul class="menu touch">
+        <li><a class="logo" href="#">Resume</a></li>
+        <li><a href="#generalinfo">Контактная информация</a></li>
+        <li><a href="#maininfo">Основная информация</a></li>
+       
+        <li><a href="#resume">Резюме</a></li>
+        <li><a href="#client">Регистрация</a></li>
+       
+       
+      </ul>
+      <span class="toggle">☰</span>
+    </label>
+    <section class="f">
+      <form>
+     <p>Регистрация администратора</p>  
+    <p>    <input type="text" id="t"  placeholder="Введите Email"></p>
+        <div class="password">
+     <input type="password" id="password-input" placeholder="Введите пароль" name="password" >
+       <label><input type="checkbox" class="password-checkbox" > Показать пароль</label><br>
+   <span>    <button id="reg" >Зарегистрироваться</button></span>
+      <span>   <button id="goon" >Войти</button></span>
+        <span>  <button id="goout" >Выйти</button></span>
+      </div>
+    </form>
+    </section>
+  </nav>
+</header>
+<main>
+  <section class="intro wrapper">
+    
+      <p class="intro-text">
+        <br />
+        "АйТи - Штурман"
+      </p>
+      <div class="gallery">
+
+        <div>	<img src="https://firebasestorage.googleapis.com/v0/b/client-order-c2e84.appspot.com/o/1%D1%81.png?alt=media&token=b199b93c-9a36-43bd-828c-f7079a15909b" alt="" class="images"></div>
+          <div>		<img src="https://firebasestorage.googleapis.com/v0/b/client-order-c2e84.appspot.com/o/2c.png?alt=media&token=24c2d012-ec1c-413f-b04b-cec24f1e5b6f" alt="" class="images"></div>
+            <div>		<img src="https://firebasestorage.googleapis.com/v0/b/client-order-c2e84.appspot.com/o/3c.png?alt=media&token=93c1f0b4-fb1f-4afe-9ed1-373437c88925" alt="" class="images"></div>
+              <div>	<img src="https://firebasestorage.googleapis.com/v0/b/client-order-c2e84.appspot.com/o/4c.png?alt=media&token=5c6946a5-8126-421e-8815-cd3141311f62" alt="" class="images"></div>
+                <div>		<img src="https://firebasestorage.googleapis.com/v0/b/client-order-c2e84.appspot.com/o/5c.png?alt=media&token=42bbc8aa-101b-4182-bb03-42aa2c83ba07" alt="" class="images"></div>
+                  <div>		<img src="https://firebasestorage.googleapis.com/v0/b/client-order-c2e84.appspot.com/o/5c.png?alt=media&token=42bbc8aa-101b-4182-bb03-42aa2c83ba07" alt="" class="images"></div>
+                    <div>	<img src="https://firebasestorage.googleapis.com/v0/b/client-order-c2e84.appspot.com/o/7c.png?alt=media&token=2792a0f3-3e18-4a5a-b3dd-0156047276df" alt="" class="images"></div>
+                      <div>	<img src="https://firebasestorage.googleapis.com/v0/b/client-order-c2e84.appspot.com/o/8c.png?alt=media&token=a4d9180a-ba9a-4920-91c8-7833b5cb4cc8" alt="" class="images"></div>
+          </div>
+  
+  </section> 
+ 
+  <section class="apartments">
+    <div class="wrapper apart">
+      <h2>Контактные<br />данные</h2>
+      <div class="cards">
+          <div class="card1">
+            
+        <div class="card-container">
+          <div class="card-info">
+            <div class="money"></div>
+            <div class="info">
+              <span> </span>
+              <span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+      <div class="buttons-search">
+        
+       
+          <button id="btnoshistka" class="all">Вернуть</button>
+         
+       
+        
+      </div>
+    </div>
+  </section>
+
+  <section class="apartments1">
+   <div class="contact_wrapper">
+      <h2>Основная<br />информация</h2>
+   
+      
+      <div class="form_inputs">
+          <div class="dataday"></div>
+          <div class="datamonth"></div>
+          <div class="datayear"></div>
+          <div class="pol"></div>
+          <div class="marr"></div>
+          <div class="vacation"></div>
+          <div class="earn"></div>
+          <div class="work">
+          <div class="seat"></div>
+          <div class="prof"></div>
+          <div class="dolshn_instruct"></div>
+          <div class="period"></div>
+         </div>
+          <div class="education"></div>
+          <div class="building"></div>
+          <div class="department"></div>
+          <div class="spec"></div>
+          <div class="yeargrad"></div>  
+
+         
+          </div>
+
+        </div>
+       
+      <div class="buttons-search">
+      
+          <button id="btnotpravka1" class="all">Заполнить</button>
+          <button id="btndel" class="all">Удалить</button>
+          <button id="btnoshistka1" class="all">Вернуть</button>
+         
+      
+        
+      </div>
+   
+  </section>
+<section>
+  <div class="main-container">
+
+    <div class="main-content-section">
+        <div class="about-me-section">
+    <h2 class="about-me-profession"> </h2>
+    <h2 class="about-me-name"></h2>
+<h2 class="about-me-surname"></h2>
+    <p class="about-me-description">
+
+    </p>
+        </div>
+        <div class="my-projects-section">
+        <h3 class="main-content-title">
+            Проекты
+            </h3>
+            <ol class="my-project-list">
+                <li class="my-projects-item">
+                    <span class="my-projects-text">
+                    <a href="https://hellenglish.goit.education/" class="my-projects-link"> https://hellenglish.goit.education/
+                </a>                      
+                ..............
+                <span class="my-projects-bracket"> [ </span> HTML5, CSS3 <span class="my-projects-bracket"> ] </span>
+                </span>
+                </li>
+                <li class="my-projects-item">
+                    <span class="my-projects-text"> 
+                    <a href="https://kidslike.goit.global/ "  class="my-projects-link"> https://kidslike.goit.global/ 
+                    </a>
+                    ...............
+                    <span class="my-projects-bracket">  [ </span> JavaScript <span class="my-projects-bracket"> ] </span>
+                </li>
+                <li class="my-projects-item"> 
+                    <span class="my-projects-text"> 
+                    <a href="https://cryptohub.goit.global/"  class="my-projects-link">https://cryptohub.goit.global/
+                    </a>
+                    ......................
+                    <span class="my-projects-bracket"> [</span> NPM, Node.js <span class="my-projects-bracket">] </span>
+                    </span>
+                </li>
+                </ol>
+            
+            </div >
+            <div class="my-work-experience-section">
+                <h3 class="main-content-title"> <br> Опыт работы</h3>
+             <div class="my-work-experience-company-block">
+                <h4 class="my-work-experience-position">  </h4>
+               <div class="my-work-experience-company">   </div>
+                   
+                    <div class="my-work-experience-period">
+                    <span class="my-work-experience-divider"> | </span>  
+                    </div>
+                       
+            </div>                
+                </div>
+              
+                
+                    <div class="educate">
+                        <h3  class="main-content-title"> 
+                            
+                            <div class="edu"></div>
+                            </h3>
+                           
+               <h4 class="my-edu-position"><span class="my-edu" >  </span></h4>
+               <h5 class="my-edu-position">
+                 <div class="facalty">    </div>
+                   <div class="special">     </div> </h5>
+                     <div class="my-edu-period">
+                        <div class="ed">   </div>  <span class="my-edu-divider"> | </span>  </div>
+     
+                      </div>
+                     
+    </div>                       
+    </div>
+
+  </section>
+  <section class="agents">
+    <div class="wrapper">
+      <h2>Основной вид деятельности:</h2>
+      <p>  ООО «АйТи-Штурман» - компания, созданная опытными специалистами в сфере продажи и
+         внедрения программных продуктов фирмы «1С».
+        Основная цель деятельности компании – оказать полный спектр услуг по автоматизации
+         управления на базе программных продуктов «1С».
+        
+         </p>
+         <div class="agent-cards">
+           <div class="agent-card">
+             <img src="https://firebasestorage.googleapis.com/v0/b/client-order-c2e84.appspot.com/o/univer%201.png?alt=media&token=27e77d4a-7c5c-43e1-ac58-d554d84bed8b" alt="">
+             <div class="agent-info">
+                <p>Команда</p>
+             <div class="agent-block">
+               <p class="agent-name">
+                 АйТи - Штурман
+               </p>
+               <div class="social">
+                
+                    <a href="#"> <i class="fab fa-vkontakte"></i></a>
+                      <a href="#"> <i class="fab fa-instagram"></i></a>
+               </div>
+             </div>
+             </div>
+           </div>
+           <div class="agent-card">
+            <img src= "https://firebasestorage.googleapis.com/v0/b/client-order-c2e84.appspot.com/o/ris6%201.png?alt=media&token=97389a2a-2baf-445d-9239-be91deea78ed" alt="">
+            <div class="agent-info">
+               <p>Рабочая атмосфера</p>
+            <div class="agent-block">
+              <p class="agent-name">
+                АйТи - Штурман
+              </p>
+              <div class="social">
+           
+            <a href="#"> <i class="fab fa-vkontakte"></i></a>
+              <a href="#"> <i class="fab fa-instagram"></i></a>
+              </div>
+            </div>
+            </div>
+          </div>      
+           
+            <div class="agent-card">
+              <img src= "https://firebasestorage.googleapis.com/v0/b/client-order-c2e84.appspot.com/o/ris4%201.png?alt=media&token=f8eccf50-5ef3-4c9e-9f2b-ee323e61be3e" alt="">
+              <div class="agent-info">
+                 <p>Программный продукт</p>
+              <div class="agent-block">
+                <p class="agent-name">
+                  АйТи - Штурман
+                </p>
+                <div class="social">
+             
+              <a href="#"> <i class="fab fa-vkontakte"></i></a>
+                <a href="#"> <i class="fab fa-instagram"></i></a>
+                </div>
+              </div>
+              </div>
+            </div>         
+         </div>
+        </div>
+    </section>
+  <div class="main_test">
+    <div class="wrapper">
+      <h1>Поиск резюме</h1>
+    </div>
+  </div>
+  <section class="contact_from">
+    
+      <h1>Расширенный поиск:</h1>
+      <div class="line"></div>
+     
+        <div class="form_inputs">
+         
+
+          <p>Введите  фамилию</p>
+         
+          <input type="text" id="fam" />
+        
+          <p>Введите должность</p>
+      
+          <input type="text" id="occupation"/>
+          <p>Введите  город</p>
+         
+          <input type="text" id="city" />
+          <p>Введите  образование</p>
+         
+          <input type="text" id="educ" />
+          
+        </div>
+        <div class="contact_wrapper">
+        <p>Данные по имени кандидатов</p><br>
+        <textarea id="ts1" name="text"></textarea><br>
+        <p>Данные по городу проживания кандидатов</p><br>
+        <textarea id="ts2" name="text"></textarea> <br>
+        <p>Данные по должности кандидатов</p> <br>
+        <textarea id="ts3" name="text"></textarea><br>
+        <p>Данные по образованию кандидатов</p><br>
+        <textarea id="ts4" name="text"></textarea> <br>
+        <div class="button_block">
+        </div>
+          <button id='poiskprof2' class="all">Получить</button>
+          <button id='btnsort' class="all">Отчет</button>
+          <button id='poiskprof' class="all">Очистить данные</button>
+        </div>        
+    
+  </section>
+  <section class="tforma">
+    <div class="wrapper">
+      <div class="tform">
+        
+        </div>
+      </div>
+    </section>
+ 
+</main>
+<footer>
+  <div class="wrapper">
+    <div class="footer-block">
+      <div class="footer-logo">
+        <h3>АйТи - Штурман</h3>
+        <h3>Станьте нашими клиентами</h3>
+      </div>
+   
+    </div>
+    <hr>
+    <div class="footer-links">
+      <div class="footer-links-logo">
+       <h4>АйТи - Штурман</h4> 
+      </div>
+      <div class="footer-link">
+          <p>АйТи - Штурман</p>
+          <a href="#">Рабочая атмосфера</a>
+          <a href="#">Наши клиенты</a>
+      </div>
+      <div class="footer-link">
+          <p>АйТи - Штурман</p>
+          <a href="#">Команда</a>
+          <a href="#">Наши клиенты</a>
+          <a href="#">Продукты 1С</a>
+          <a href="#">Наши клиенты</a>
+      </div>
+      <div class="footer-link">
+          <p>АйТи - Штурман</p>
+          <a href="#">Команда</a>
+          <a href="#">Наши клиенты</a>
+      </div>
+      <div class="footer-link">
+          <p>АйТи - Штурман</p>
+          <a href="#">Рабочая атмосфера</a>
+          <a href="#">Продукты 1С</a>
+          <a href="#">Наши клиенты</a>
+      </div>
+    </div>
+  </div>
+</footer> 
+       
+
+   </body>
+</html>
